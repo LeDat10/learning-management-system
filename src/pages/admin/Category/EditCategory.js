@@ -168,6 +168,7 @@ function EditCategory() {
                                                 // ],
                                                 ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
                                                 // file_picker_callback: handlePickerCallback
+                                                responsive: true,
                                             }}
                                             initialValue={category.description || ""}
                                         />
