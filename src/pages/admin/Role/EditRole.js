@@ -38,12 +38,13 @@ function EditRole() {
     }, [role]);
 
     const handleSubmit = async (data) => {
+        setLoading(true);
+
         if (editorRef.current.getContent()) {
             data.description = editorRef.current.getContent();
         } else {
             data.description = "";
         };
-        setLoading(true);
         const result = await editRole(roleId, data);
         if (result.code === 200) {
             message.success(result.message);

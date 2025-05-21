@@ -89,6 +89,7 @@ function EditCourse() {
     ];
 
     const handleSubmit = async (data) => {
+        setLoading(true);
         const formData = new FormData();
         for (const key in data) {
             if (key === "thumbnail") {
@@ -129,7 +130,6 @@ function EditCourse() {
         } else {
             formData.append("description", "");
         };
-        setLoading(true);
         const result = await editCourse(params.courseId, formData);
         if (result.code === 200) {
             message.success(result.message);

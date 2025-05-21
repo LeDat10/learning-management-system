@@ -65,6 +65,8 @@ function EditLesson() {
     ]
 
     const handleSubmit = async (data) => {
+        setLoading(true);
+
         if (data.status) {
             data.status = "active";
         } else {
@@ -76,7 +78,6 @@ function EditLesson() {
         } else {
             data.content = "";
         };
-        setLoading(true);
         const result = await editLessonText(sectionId, lessonId, data);
 
         if (result.code === 200) {

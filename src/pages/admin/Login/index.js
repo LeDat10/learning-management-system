@@ -5,12 +5,15 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { login } from "../../../services/admin/accountService";
 import { loginAccountSuccess } from "../../../actions/auth";
+import { useState } from "react";
 function Login() {
     const [form] = Form.useForm();
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (value) => {
+        setLoading(true);
         const result = await login(value);
         if (result.code === 200) {
             dispatch(loginAccountSuccess(result.token));
@@ -21,6 +24,7 @@ function Login() {
         } else {
             message.error(result.message);
         };
+        setLoading(false);
     };
 
     return (

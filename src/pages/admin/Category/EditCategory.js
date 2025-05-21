@@ -56,6 +56,7 @@ function EditCategory() {
     }, [category]);
 
     const handleSubmit = async (data) => {
+        setLoading(true);
         const formData = new FormData();
         for (const key in data) {
             if (key === "thumbnail") {
@@ -96,7 +97,6 @@ function EditCategory() {
         } else {
             formData.append("description", "");
         };
-        setLoading(true);
         const result = await editCategory(categoryId, formData);
         if (result.code === 200) {
             message.success(result.message);

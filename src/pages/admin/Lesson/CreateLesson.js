@@ -33,6 +33,8 @@ function CreateLesson() {
     ]
 
     const handleSubmit = async (data) => {
+        setLoading(true);
+
         if (data.status) {
             data.status = "active";
         } else {
@@ -45,7 +47,6 @@ function CreateLesson() {
             data.content = "";
         };
 
-        setLoading(true);
         const result = await createLessonText(sectionId, data);
 
         if (result.code === 200) {

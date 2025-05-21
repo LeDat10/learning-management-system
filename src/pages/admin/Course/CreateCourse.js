@@ -51,6 +51,7 @@ function CreateCourse() {
 
 
     const handleSubmit = async (data) => {
+        setLoading(true);
         const formData = new FormData();
         for (const key in data) {
             if (key === "thumbnail") {
@@ -81,7 +82,6 @@ function CreateCourse() {
         } else {
             formData.append("description", "");
         };
-        setLoading(true);
         const result = await createCourse(formData);
         if (result.code === 200) {
             message.success(result.message);

@@ -1,8 +1,7 @@
 import axios from "axios";
 import { tokenExpiredAccount } from "../../actions/auth";
 import store from "../../store/store";
-import { message } from "antd";
-const API_DOMAIN = 'https://api-learning-management-system.vercel.app/api/';
+const API_DOMAIN = 'http://localhost:7000/api/';
 
 const axiosInstance = axios.create();
 
@@ -11,7 +10,6 @@ axiosInstance.interceptors.response.use(
   (response) => {
     // Trường hợp server trả về code 401 trong dữ liệu
     if (response?.data?.code === 401) {
-      message.success(response?.data?.message);
       store.dispatch(tokenExpiredAccount());
     }
     return response;
@@ -20,7 +18,6 @@ axiosInstance.interceptors.response.use(
     // Trường hợp response lỗi 401 từ status code
     if (error?.response?.status === 401) {
       // console.log("Token hết hạn (status 401)");
-      message.success("Token hết hạn (status 401)");
       store.dispatch(tokenExpiredAccount());
     }
     return Promise.reject(error);

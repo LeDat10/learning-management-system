@@ -13,6 +13,8 @@ function CreateRole() {
     const { permissions } = useSelector((state) => state.authAdminReducer);
 
     const handleSubmit = async (data) => {
+        setLoading(true);
+
         if (data.status) {
             data.status = "active";
         } else {
@@ -24,7 +26,6 @@ function CreateRole() {
         } else {
             data.description = "";
         };
-        setLoading(true);
         const result = await createRole(data);
         if (result.code === 200) {
             message.success(result.message);
