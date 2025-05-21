@@ -1,13 +1,118 @@
-body {
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: "Montserrat", sans-serif !important;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 576px) {
+  .container {
+    max-width: 96%;
+  }
+}
+
+.word-wrap {
+  white-space: normal;
+  /* Cho phép xuống dòng */
+  word-wrap: break-word;
+  /* Bẻ từ nếu cần thiết */
+  overflow-wrap: break-word;
+}
+
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 94%;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    max-width: 94%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1300px;
+  }
+}
+
+.container-admin {
+  margin: 0px 30px;
+}
+
+.header-page {
+  margin: 30px 0px;
+  background-color: #409AFC;
+  border-radius: 10px;
+  padding: 10px 20px;
+}
+
+.desc {
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.label-desc {
+  padding-bottom: 8px;
+}
+
+.title-page {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.6;
+  color: #fff;
+}
+
+@media (max-width: 576px) {
+  .container-admin {
+    margin: 0px 15px;
+  }
+
+  .header-page {
+    margin: 15px 0px;
+  }
+}
+
+.d-none {
+  display: none;
+}
+
+.pagination {
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+@media (min-width: 1200px) {
+  .d-xl-block {
+    display: block;
+  }
+}
+
+@media (min-width: 1400px) {
+  .d-xxl-block {
+    display: block;
+  }
 }

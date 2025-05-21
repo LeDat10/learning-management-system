@@ -1,0 +1,51 @@
+.account {
+    &__form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+    }
+
+    // filter
+    &__filter-bar {
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+    }
+
+    // end filter
+
+    &__table {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+    }
+
+    // card
+    &__card {
+        display: none;
+        margin-bottom: 30px;
+    }
+
+    &__card-item {
+        overflow: hidden;
+    }
+
+    &__card-image {
+        width: 100%;
+        object-fit: cover;
+    }
+
+    // end card
+    @media (max-width: 1200px) {
+        &__table {
+            display: none;
+        }
+
+        &__card {
+            display: block;
+        }
+    }
+}

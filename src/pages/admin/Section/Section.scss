@@ -1,0 +1,77 @@
+// Section
+.section {
+    &__title {
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 1.6;
+        color: #fff;
+    }
+
+    &__table {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+        display: block;
+    }
+
+    &__form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+    }
+
+    &__desc {
+        margin-bottom: 24px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__label-desc {
+        padding-bottom: 8px;
+    }
+
+    &__position {
+        width: auto;
+    }
+
+    // filter
+    &__filter-bar {
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+    }
+
+    // end filter
+
+    // card
+    &__card {
+        display: none;
+        margin-bottom: 30px;
+    }
+
+    &__card-item {
+        overflow: hidden;
+    }
+
+    &__card-image {
+        width: 100%;
+        object-fit: cover;
+    }
+
+    // end card
+
+    @media (max-width: 1200px) {
+        &__table {
+            display: none;
+        }
+
+        &__card {
+            display: block;
+        }
+    }
+}
+
+// End Section

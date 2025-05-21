@@ -1,0 +1,347 @@
+import { Row, Col, Button, Card, Checkbox, InputNumber, Pagination, Tag } from "antd";
+import './Lesson.scss';
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { changeMultiLesson, changeStatusLesson, deleteLessonText, getLesson } from "../../../services/admin/lessonSevice";
+import parse from "html-react-parser";
+import ChangeMulti from "../../../Components/ChangeMulti";
+import { getSelected } from "../../../helper/getSelected";
+import ChangeStatus from "../../../Components/ChangeStatus";
+import Delete from "../../../Components/Delete";
+import InputSearch from "../../../Components/InputSearch";
+import FilterStatus from "../../../Components/FilterStatus";
+import Sort from "../../../Components/Sort";
+import { RedoOutlined } from '@ant-design/icons';
+import { useQueryParams } from "../../../hooks/useQueryParams";
+import { useSelector } from "react-redux";
+
+const { Meta } = Card;
+
+function Lesson() {
+    const navigate = useNavigate();
+    const params = useParams();
+    const sectionId = params.sectionId;
+    const courseId = params.courseId;
+    const [lessons, setLesson] = useState([]);
+    const [reload, setReload] = useState(false);
+    const [checkedLessons, setCheckedLessons] = useState([]);
+    const [positions, setPositions] = useState([]);
+    const [totalLesson, setTotalLesson] = useState(1);
+    const location = useLocation();
+    const queryParams = useQueryParams();
+    const { permissions } = useSelector((state) => state.authAdminReducer);
+
+
+    const limit = 5;
+
+    const fetchAPI = async (sectionId, params = {}) => {
+        const result = await getLesson(sectionId, params);
+        setLesson(result.lessons);
+        setTotalLesson(result.totalLesson);
+
+    };
+
+    const handleReload = () => {
+        setReload(!reload);
+    };
+
+    useEffect(() => {
+        const page = queryParams.get('page') || 1;
+        const sortKey = queryParams.get('sortKey') || "";
+        const sortValue = queryParams.get('sortValue') || "";
+        const keyword = queryParams.get('keyword') || "";
+        const status = queryParams.get('status') || "";
+
+        fetchAPI(sectionId, {
+            page: page,
+            limit: limit,
+            sortKey: sortKey,
+            sortValue: sortValue,
+            keyword: keyword,
+            status: status
+        });
+    }, [reload, location.search]);
+
+    const handleCheck = (id) => {
+        setCheckedLessons((prev) =>
+            prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
+        );
+    };
+
+    const changeMultiOption = [
+        {
+            value: '',
+            label: "-- Chọn hành động --",
+            disabled: true
+        },
+        {
+            value: 'active',
+            label: "-- Hoạt động --"
+        },
+        {
+            value: 'inactive',
+            label: "-- Dừng hoạt động --"
+        },
+        {
+            value: 'position',
+            label: "-- Thay đổi vị trí --"
+        },
+        {
+            value: 'delete-all',
+            label: "-- Xóa tất cả --"
+        }
+    ];
+
+    const filterStatusOptions = [
+        {
+            value: "",
+            label: "-- Trạng thái --",
+            disabled: true
+        },
+        {
+            value: "all",
+            label: "-- Tất cả --"
+        },
+        {
+            value: "active",
+            label: "-- Hoạt động --",
+        },
+        {
+            value: "inactive",
+            label: "-- Dừng hoạt động --",
+        }
+    ];
+
+    const sortOptions = [
+        {
+            value: "position-asc",
+            label: "-- Vị trí tăng dần --"
+        },
+        {
+            value: "position-desc",
+            label: "-- Vị trí giảm dần --"
+        },
+        {
+            value: "title-asc",
+            label: "-- Tiêu đề từ A - Z --"
+        },
+        {
+            value: "title-desc",
+            label: "-- Tiêu đề từ Z - A --"
+        }
+    ];
+
+    const handleChangePosition = (key, value) => {
+        setPositions(prev => ({
+            ...prev,
+            [key]: value
+        }));
+    };
+
+    const setRowKeysEmpty = () => {
+        setCheckedLessons([]);
+    };
+
+    const handleFilterStatus = (status) => {
+        if (status === "all") {
+            const queryParams = new URLSearchParams(location.search);
+            queryParams.set('status', "");
+            navigate({
+                pathname: location.pathname,
+                search: `?${queryParams.toString()}`
+            });
+        } else {
+            const queryParams = new URLSearchParams(location.search);
+            queryParams.set('status', status);
+            navigate({
+                pathname: location.pathname,
+                search: `?${queryParams.toString()}`
+            });
+        };
+    };
+
+    const handleSearch = (keyword) => {
+        const queryParams = new URLSearchParams(location.search);
+        queryParams.set('keyword', keyword);
+        navigate({
+            pathname: location.pathname,
+            search: `?${queryParams.toString()}`
+        });
+    };
+
+    const handleSort = (value) => {
+        const [sortKey, sortValue] = value.split("-");
+        const queryParams = new URLSearchParams(location.search);
+        queryParams.set('sortKey', sortKey);
+        queryParams.set('sortValue', sortValue);
+        navigate({
+            pathname: location.pathname,
+            search: `?${queryParams.toString()}`
+        });
+    };
+
+
+
+    const handleChangePagination = (page) => {
+        const queryParams = new URLSearchParams(location.search);
+
+        queryParams.set('page', page);
+        queryParams.set('limit', limit);
+        navigate({
+            pathname: location.pathname,
+            search: `?${queryParams.toString()}`
+        });
+    };
+
+    return (
+        <>
+            {permissions.includes("lessons_view") ? (
+                <div className="lesson">
+                    <div className="container-admin">
+                        <div className="header-page">
+                            <Row gutter={[30, 10]} justify="space-between" align="middle">
+                                <Col md={12}>
+                                    <Row gutter={10} align='middle'>
+                                        <Col>
+                                            <h3 className="lesson__title">
+                                                Danh sách bài học
+                                            </h3>
+                                        </Col>
+
+                                        {permissions.includes("sections_view") && (
+                                            <Col>
+                                                <Link to={`/admin/${courseId}/sections`}>
+                                                    <Button color="primary" variant="outlined">Danh sách chương</Button>
+                                                </Link>
+                                            </Col>
+                                        )}
+                                    </Row>
+
+
+                                </Col>
+
+                                <Col flex="none">
+                                    <Row gutter={[10, 10]}>
+                                        {permissions.includes("lessons_edit") && (
+                                            <Col flex="none">
+                                                <div className="lesson__change-multi">
+                                                    <ChangeMulti
+                                                        changeMultiOption={changeMultiOption}
+                                                        onReload={handleReload}
+                                                        selectedRowKeys={checkedLessons}
+                                                        getSelected={getSelected}
+                                                        rowKeysEmpty={setRowKeysEmpty}
+                                                        changeMulti={(option) => changeMultiLesson(sectionId, option)}
+                                                        positions={positions}
+                                                        textConfirm="Bạn có chắc muốn xóa những bài học này?"
+                                                    />
+                                                </div>
+                                            </Col>
+                                        )}
+
+                                        {permissions.includes("lessons_create") && (
+                                            <Col>
+                                                <Link to={`/admin/${courseId}/${sectionId}/lessons/create`}>
+                                                    <Button color="primary" variant="outlined">Thêm bài học</Button>
+                                                </Link>
+                                            </Col>
+                                        )}
+
+                                        {permissions.includes("lessons_trash") && (
+                                            <Col flex="none">
+                                                <Link to={`/admin/${courseId}/${sectionId}/lessons/trash`}><Button icon={<RedoOutlined />} color="purple" variant="outlined">Khôi phục</Button></Link>
+                                            </Col>
+                                        )}
+                                    </Row>
+                                </Col>
+                            </Row>
+                        </div>
+
+                        <div className="lesson__filter-bar">
+                            <Row gutter={[30, 20]}>
+                                <Col xs={24} sm={24} md={12} lg={12} xl={6} xxl={6}>
+                                    <InputSearch valueDefault={queryParams.get('keyword') || ''} onSearch={handleSearch} />
+                                </Col>
+
+                                <Col xs={24} sm={24} md={12} lg={12} xl={6} xxl={6}>
+                                    <FilterStatus filterStatusOptions={filterStatusOptions} handleChangeStatus={handleFilterStatus} valueDefault={queryParams.get('status') || ''} />
+                                </Col>
+
+                                <Col xs={24} sm={24} md={12} lg={12} xl={6} xxl={6}>
+                                    <Sort sortOptions={sortOptions} handleSort={handleSort} defaultSelect={`${queryParams.get('sortKey') || "position"}-${queryParams.get('sortValue') || "asc"}`} />
+                                </Col>
+                            </Row>
+                        </div>
+
+                        <div className="lesson__card">
+                            <Row gutter={[20, 20]}>
+                                {lessons && (
+                                    lessons.map(lesson => (
+                                        <Col xxl={24} xl={24} lg={24} md={24} sm={24} xs={24} key={lesson._id}>
+                                            <Card
+                                                actions={[
+                                                    <Checkbox
+                                                        checked={checkedLessons.includes(lesson._id)}
+                                                        onChange={() => handleCheck(lesson._id)}
+                                                    >
+                                                    </Checkbox>,
+                                                    <InputNumber min={1} defaultValue={lesson.position} onChange={(value) => { handleChangePosition(lesson._id, value) }} />,
+                                                    permissions.includes("lessons_edit") ? (
+                                                        <ChangeStatus status={lesson.status} onReload={handleReload} changeStatus={(option) => changeStatusLesson(sectionId, lesson._id, option)} />
+                                                    ) : (
+                                                        lesson.status === "active" ? (
+                                                            <Tag color="success">Hoạt động</Tag>
+                                                        ) : (
+                                                            <Tag color="error">Dừng hoạt động</Tag>
+                                                        )
+                                                    )
+                                                ]}
+                                                hoverable
+                                                type="inner"
+                                                style={{ height: "100%" }}
+                                                extra={
+                                                    <>
+                                                        <Row style={{ marginTop: "5px", marginBottom: "5px" }} gutter={[10, 10]} justify={"end"}>
+                                                            {permissions.includes("lessons_edit") && (
+                                                                <Col>
+                                                                    <Link to={`/admin/${courseId}/${sectionId}/lessons/edit/${lesson._id}`} style={{ marginRight: "5px" }}>
+                                                                        <Button color="primary" variant="filled">Chỉnh sửa</Button>
+                                                                    </Link>
+                                                                </Col>
+                                                            )}
+
+                                                            {permissions.includes("lessons_delete") && (
+                                                                <Col>
+                                                                    <Delete id={lesson._id} onReload={handleReload} functionDelete={(lessonId) => deleteLessonText(sectionId, lessonId)} textConfirm={"Bạn có muốn xóa bài học này không?"} />
+                                                                </Col>
+                                                            )}
+                                                        </Row>
+                                                    </>
+                                                }
+                                            >
+                                                <Meta
+                                                    title={lesson.title}
+                                                    description={parse(lesson.content || "")}
+                                                />
+                                            </Card>
+                                        </Col>
+                                    ))
+                                )}
+                            </Row>
+                        </div>
+
+                        <Row gutter={[20, 20]}>
+                            <Col span={24}>
+                                <Pagination onChange={handleChangePagination} className="pagination" align="center" defaultCurrent={queryParams.get('page')} total={totalLesson} pageSize={limit} />
+                            </Col>
+                        </Row>
+                    </div>
+                </div>
+            ) : (
+                <div>Không được cấp quyền xem bài học</div>
+            )}
+        </>
+    );
+};
+
+export default Lesson;

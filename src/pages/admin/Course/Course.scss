@@ -1,0 +1,137 @@
+// course
+.course {
+    &__header {
+        margin: 30px 0px;
+        background-color: #409AFC;
+        padding: 10px 20px;
+        border-radius: 10px;
+    }
+
+    &__title {
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 1.6;
+        color: #fff;
+
+    }
+
+    &__sub-title {
+        font-weight: 400;
+        color: #a1a5b7;
+    }
+
+    &__table {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+    }
+
+    &__image {
+        width: 80px;
+        height: auto;
+    }
+
+    // filter
+    &__filter-bar {
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+    }
+
+    // end filter
+    &__form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+    }
+
+    &__desc {
+        margin-bottom: 24px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__label-desc {
+        padding-bottom: 8px;
+    }
+
+    &__position {
+        width: auto;
+    }
+
+    // card
+    &__card {
+        display: none;
+        margin-bottom: 30px;
+    }
+
+    &__card-item {
+        overflow: hidden;
+    }
+
+    &__card-image {
+        width: 100%;
+        object-fit: cover;
+    }
+
+    // end card
+    @media (max-width: 1200px) {
+        &__table {
+            display: none;
+        }
+
+        &__card {
+            display: block;
+        }
+    }
+}
+
+// end course
+
+// Create course
+.create-course {
+    &__header {
+        margin: 30px 0px;
+        background-color: #409AFC;
+        border-radius: 10px;
+        padding: 10px 20px;
+    }
+
+    &__title {
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 1.6;
+        color: #fff;
+    }
+
+    &__sub-title {
+        font-weight: 400;
+        color: #a1a5b7;
+    }
+
+    &__form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+    }
+
+    &__desc {
+        margin-bottom: 24px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__label-desc {
+        padding-bottom: 8px;
+    }
+
+    &__position {
+        width: auto;
+    }
+}
+
+// End Create course

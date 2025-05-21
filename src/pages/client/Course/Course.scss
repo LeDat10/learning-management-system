@@ -1,0 +1,186 @@
+.course {
+    padding: 0px 32px;
+
+    &__inner-title {
+        background-image: url("../../../images/client/04-Bnwx2Yg_.png");
+        background-color: rgba(29, 59, 83, 1);
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        padding: 56px 0px;
+        display: flex;
+        justify-content: center;
+    }
+
+    &__title {
+        color: #fff;
+        font-size: calc(1.40625rem + 1.875vw);
+        text-align: center;
+    }
+
+    &__inner-grid {
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+    }
+
+    &__search {
+        margin-bottom: 1.6rem;
+    }
+
+    &__title-item {
+        font-size: 1.3125rem;
+        word-wrap: break-word;
+        word-break: break-word;
+        white-space: normal;
+
+    }
+
+    &__image-item {
+        width: 100%;
+        height: auto;
+    }
+
+    &__grid {
+        & .ant-card {
+            display: flex;
+            flex-direction: column;
+            /* Đặt chiều cao tối thiểu để đồng đều, bạn có thể điều chỉnh */
+        }
+
+        & .ant-card-body {
+            flex: 1;
+            /* Nội dung của Card kéo giãn để lấp đầy không gian */
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    &__filter-drawer {
+        display: none;
+    }
+
+    @media (max-width: 992px) {
+        &__filter {
+            display: none;
+        }
+
+        &__filter-drawer {
+            display: block;
+        }
+
+        @media (max-width: 576px) {
+            & {
+                padding: 0px 13px;
+            }
+
+        }
+    }
+
+
+
+    // detail
+    //header
+    &__header-detail {
+        padding: 2rem 0;
+        background-color: rgba(245, 247, 249, 1);
+    }
+
+    &__inner-header {
+        padding-left: 13px;
+        padding-right: 13px;
+    }
+
+    &__header-image {
+        width: 250px;
+        margin-bottom: 15px;
+    }
+
+    &__header-title {
+        font-size: 2rem;
+    }
+
+    //end header
+
+    // content
+    &__content-detail {
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+    }
+
+    &__inner-content {
+        padding-left: 13px;
+        padding-right: 13px;
+    }
+
+    &__overview {
+        margin-bottom: 15px;
+    }
+
+    // end content
+
+    &__card-title {
+        font-size: 1.4rem;
+        font-weight: 700;
+    }
+
+    //info
+    &__info-item {
+        margin-bottom: 1rem;
+        font-size: 1rem;
+    }
+
+    &__info-icon {
+        margin-right: .5rem;
+        color: #1f72c4;
+    }
+
+    //end info
+    // end detail
+
+    //play-course
+    &__img-layout {
+        width: 65px;
+        height: 60px;
+    }
+
+    &__label-sider {
+        margin-left: 1rem;
+    }
+
+    &__sider-layout {
+        overflow: auto;
+        height: calc(100vh - 65px - 19px);
+        position: sticky;
+        inset-inline-start: 0;
+        top: 65px;
+        bottom: 0;
+    }
+
+    &__layout-basic {
+        display: none;
+    }
+
+    @media (max-width: 768px) {
+        &__layout-basic {
+            display: block;
+        }
+
+        &__layout-sider {
+            display: none;
+        }
+    }
+    // end play-course
+}
+
+.content {
+    &__card {
+        max-width: 1000px;
+        margin: auto;
+        margin-top: 2rem;
+        padding: 20px;
+    }
+
+    &__card-title {
+        margin-bottom: 20px;
+    }
+}
