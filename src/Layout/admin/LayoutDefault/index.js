@@ -89,7 +89,19 @@ function LayoutDefaultAdmin() {
             </Layout>
 
             <Layout className="layout-basic">
-                <Header className="layout-basic__header">
+                <Header
+                    style={{
+                        padding: 0,
+                        background: "#fff",
+                        borderBottom: '1px solid #ddd',
+                        position: 'sticky',
+                        top: 0,
+                        zIndex: 1,
+                        width: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                    }}
+                    className="layout-basic__header">
                     <Row>
                         <Col>
                             <Link to={'/admin/dashboard'} className="layout-basic__inner-logo">

@@ -1,6 +1,5 @@
 import { Button, Col, Drawer, Layout, Row } from "antd";
 import { Link, Outlet, useParams } from "react-router-dom";
-import Logo from "../../../images/admin/image.png";
 import "./Course.scss";
 import { CloseOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
@@ -17,7 +16,6 @@ function PlayCourse() {
     const [items, setItems] = useState([]);
     const params = useParams();
     const slugCourse = params.slugCourse;
-    const [reload, setReload] = useState(false);
     const fetchAPI = async () => {
         const result = await getDetailCourse(slugCourse);
         console.log(result.course);
@@ -104,7 +102,19 @@ function PlayCourse() {
             </Layout>
 
             <Layout className="course__layout-basic">
-                <Header className="layout-basic__header">
+                <Header
+                    style={{
+                        padding: 0,
+                        background: "#fff",
+                        borderBottom: '1px solid #ddd',
+                        position: 'sticky',
+                        top: 0,
+                        zIndex: 1,
+                        width: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                    }}
+                    className="layout-basic__header">
                     <Row>
                         <Col>
                             <Link to={`/courses/detail/${slugCourse}`} className="layout-basic__inner-logo">
