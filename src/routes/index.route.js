@@ -36,6 +36,10 @@ import PrivateRouteAdmin from "../middlewares/admin/PrivateRouteAdmin";
 import PrivateRouteClient from "../middlewares/client/PrivateRouteAClient";
 import PlayCourse from "../pages/client/Course/PlayCourse";
 import Content from "../pages/client/Course/Content";
+import LayoutUser from "../Layout/client/LayoutUser";
+import ForgotPassword from "../pages/client/ForgotPassword";
+import ForgotOTP from "../pages/client/ForgotOTP";
+import ResetPassword from "../pages/client/ResetPassword";
 
 export const routes = [
     {
@@ -80,6 +84,7 @@ export const routes = [
     },
     {
         path: "users",
+        element: <LayoutUser />,
         children: [
             {
                 path: "login",
@@ -93,10 +98,27 @@ export const routes = [
                 path: "confirm",
                 children: [
                     {
-                        path: "otp/:email",
+                        path: "otp",
                         element: <OTP />
                     }
 
+                ]
+            },
+            {
+                path: "password",
+                children: [
+                    {
+                        path: "forgot",
+                        element: <ForgotPassword />
+                    },
+                    {
+                        path: "otp",
+                        element: <ForgotOTP />
+                    },
+                    { 
+                        path: "reset-password",
+                        element: <ResetPassword />
+                    }
                 ]
             }
         ]

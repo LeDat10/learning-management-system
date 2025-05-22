@@ -1,11 +1,12 @@
 import NavBar from "./NavBar";
 // import logo from "../../../images/logo.png";
 import logo from "../../../images/logo-22DQx7cW.svg";
-import { Menu, Input, Button, Popover } from 'antd';
-import { AppstoreOutlined, UserOutlined, SettingOutlined, PoweroffOutlined } from "@ant-design/icons";
+import { Menu, Input, Button } from 'antd';
+import { AppstoreOutlined } from "@ant-design/icons";
 import "./LayoutDefalut.scss";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Info from "./Info";
 
 const { Search } = Input;
 function Header() {
@@ -41,34 +42,6 @@ function Header() {
         },
     ];
 
-    const content = (
-        <div className="header__user">
-            <div className="header__info">
-                <div className="header__avatar-pop">
-                    <img src="https://themes.stackbros.in/eduport_r/assets/01-7N0KytgQ.jpg" alt="Avatar" />
-                </div>
-
-                <div className="header__content-info">
-                    <div className="header__full-name">
-                        Nguyễn Văn A
-                    </div>
-
-                    <div className="header__email">
-                        nguyenvana@gmail.com
-                    </div>
-                </div>
-            </div>
-
-            <div className="header__menu-info">
-                <Button icon={<UserOutlined />} type="text" color="primary">Chỉnh sửa thông tin</Button>
-                <Button icon={<SettingOutlined />} type="text" color="primary">Cài đặt tài khoản</Button>
-                <Button icon={<PoweroffOutlined />} type="text" danger>Đăng xuất</Button>
-            </div>
-        </div>
-    );
-
-
-
     return (
         <>
             <div className="container">
@@ -97,11 +70,7 @@ function Header() {
 
                         <NavBar />
 
-                        <div className="header__avatar">
-                            <Popover content={content} trigger="click" placement="bottomRight">
-                                <img src="https://themes.stackbros.in/eduport_r/assets/01-7N0KytgQ.jpg" alt="Avatar" />
-                            </Popover>
-                        </div>
+                        <Info />
                     </div>
                 </div>
             </div>

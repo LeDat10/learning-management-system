@@ -109,7 +109,7 @@ function DetailCourseClient() {
                                             <div className="course__info">
                                                 <div className="course__info-item">
                                                     <span className="course__info-icon"><QrcodeOutlined /></span>
-                                                    <span>Mã lớp học: </span>
+                                                    <span>Mã lớp học: {course.code}</span>
                                                 </div>
 
                                                 <div className="course__info-item">

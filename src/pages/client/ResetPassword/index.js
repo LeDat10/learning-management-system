@@ -1,47 +1,45 @@
+import { useLocation } from 'react-router-dom';
 import { Form, Input, Button, message } from "antd";
 import logo2 from "../../../images/logo-2.png";
-import { useLocation, useNavigate } from "react-router-dom";
-import "./OTP.scss";
-import { confirmOTP } from "../../../services/client/userService";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import "./ResetPassword.scss";
+import { resetPassword } from '../../../services/client/userService';
+import { LockOutlined } from "@ant-design/icons";
 
-function OTP() {
-    const [form] = Form.useForm();
+
+function ResetPassword() {
     const query = new URLSearchParams(useLocation().search);
-    const email = query.get('email');
+    const token = query.get('token');
+    const [form] = Form.useForm();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (data) => {
         setLoading(true);
-        data.email = email;
-
-        const result = await confirmOTP(data);
-
+        data.token = token;
+        const result = await resetPassword(data);
         if (result.code === 200) {
-            navigate("/users/login");
+            navigate(`/users/login`);
             message.success(result.message);
         } else {
             message.error(result.message);
-        };
-
+        }
         setLoading(false);
-    }
+    };
     return (
         <>
-            <div className="otp__header-form">
-                <div className="otp__logo">
+            <div className="reset__header-form">
+                <div className="reset__logo">
                     <img src={logo2} alt="logo" />
 
-                    <h1 className="otp__title">
-                        Nhập mã OTP xác thực
+                    <h1 className="reset__title">
+                        Đặt lại mật khẩu
                     </h1>
-
-                    <p className="otp__sub-title">Mã OTP đã được gửi về email <b>{email}</b>. Vui lòng nhập mã OTP vào ô bên dưới để xác thực tài khoản.</p>
                 </div>
             </div>
 
-            <div className="otp__form">
+            <div className="reset__form">
                 <Form
                     form={form}
                     name="login"
@@ -50,21 +48,21 @@ function OTP() {
                     size="large"
                 >
                     <Form.Item
-                        label={<b>Mã OTP</b>}
-                        name="otp"
+                        label={<b>Mật khẩu</b>}
+                        name="newPassword"
                         rules={[
                             {
                                 required: true,
-                                message: "OTP không thể bỏ trống!"
+                                message: "Mật khẩu không thể bỏ trống!"
                             }
                         ]}
                     >
-                        <Input placeholder="Nhập mã OTP" />
+                        <Input.Password placeholder="Nhập mật khẩu" prefix={<LockOutlined />} />
                     </Form.Item>
 
                     <Form.Item>
                         <Button loading={loading} block type="primary" htmlType="submit">
-                            Xác nhận
+                            Đặt lại mật khẩu
                         </Button>
                     </Form.Item>
                 </Form>
@@ -73,4 +71,4 @@ function OTP() {
     );
 };
 
-export default OTP;
+export default ResetPassword;

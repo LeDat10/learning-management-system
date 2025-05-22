@@ -1,47 +1,40 @@
 import { Form, Input, Button, message } from "antd";
+import { MailOutlined } from "@ant-design/icons";
 import logo2 from "../../../images/logo-2.png";
-import { useLocation, useNavigate } from "react-router-dom";
-import "./OTP.scss";
-import { confirmOTP } from "../../../services/client/userService";
+import { useNavigate } from "react-router-dom";
+import { forgotPassword } from "../../../services/client/userService";
 import { useState } from "react";
+import "./ForgotPassword.scss";
 
-function OTP() {
+function ForgotPassword() {
     const [form] = Form.useForm();
-    const query = new URLSearchParams(useLocation().search);
-    const email = query.get('email');
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
 
-    const handleSubmit = async (data) => {
+    const handleSubmit = async (value) => {
         setLoading(true);
-        data.email = email;
-
-        const result = await confirmOTP(data);
-
+        const result = await forgotPassword(value);
         if (result.code === 200) {
-            navigate("/users/login");
+            navigate(`/users/password/otp?email=${result.email}`);
             message.success(result.message);
         } else {
             message.error(result.message);
-        };
-
+        }
         setLoading(false);
-    }
+    };
     return (
         <>
-            <div className="otp__header-form">
-                <div className="otp__logo">
+            <div className="forgot__header-form">
+                <div className="forgot__logo">
                     <img src={logo2} alt="logo" />
 
-                    <h1 className="otp__title">
-                        Nhập mã OTP xác thực
+                    <h1 className="forgot__title">
+                        Đặt lại mật khẩu
                     </h1>
-
-                    <p className="otp__sub-title">Mã OTP đã được gửi về email <b>{email}</b>. Vui lòng nhập mã OTP vào ô bên dưới để xác thực tài khoản.</p>
                 </div>
             </div>
 
-            <div className="otp__form">
+            <div className="forgot__form">
                 <Form
                     form={form}
                     name="login"
@@ -50,21 +43,21 @@ function OTP() {
                     size="large"
                 >
                     <Form.Item
-                        label={<b>Mã OTP</b>}
-                        name="otp"
+                        label={<b>Email</b>}
+                        name="email"
                         rules={[
                             {
                                 required: true,
-                                message: "OTP không thể bỏ trống!"
+                                message: "Email không thể bỏ trống!"
                             }
                         ]}
                     >
-                        <Input placeholder="Nhập mã OTP" />
+                        <Input placeholder="Nhập email" prefix={<MailOutlined />} />
                     </Form.Item>
 
                     <Form.Item>
                         <Button loading={loading} block type="primary" htmlType="submit">
-                            Xác nhận
+                            Gửi mail xác nhận
                         </Button>
                     </Form.Item>
                 </Form>
@@ -73,4 +66,4 @@ function OTP() {
     );
 };
 
-export default OTP;
+export default ForgotPassword;

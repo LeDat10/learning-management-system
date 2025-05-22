@@ -1,26 +1,25 @@
 import { Form, Input, Button, message } from "antd";
 import logo2 from "../../../images/logo-2.png";
-import { useLocation, useNavigate } from "react-router-dom";
-import "./OTP.scss";
-import { confirmOTP } from "../../../services/client/userService";
+import { useLocation } from "react-router-dom";
+import "./ForgotOTP.scss";
+import { otpPassword } from "../../../services/client/userService";
 import { useState } from "react";
 
-function OTP() {
+function ForgotOTP() {
     const [form] = Form.useForm();
     const query = new URLSearchParams(useLocation().search);
     const email = query.get('email');
-    const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (data) => {
         setLoading(true);
         data.email = email;
 
-        const result = await confirmOTP(data);
+        const result = await otpPassword(data);
 
         if (result.code === 200) {
-            navigate("/users/login");
             message.success(result.message);
+            form.resetFields();
         } else {
             message.error(result.message);
         };
@@ -29,19 +28,19 @@ function OTP() {
     }
     return (
         <>
-            <div className="otp__header-form">
-                <div className="otp__logo">
+            <div className="forgot-otp__header-form">
+                <div className="forgot-otp__logo">
                     <img src={logo2} alt="logo" />
 
-                    <h1 className="otp__title">
-                        Nhập mã OTP xác thực
+                    <h1 className="forgot-otp__title">
+                        Nhập mã OTP đặt lại mật khẩu
                     </h1>
 
-                    <p className="otp__sub-title">Mã OTP đã được gửi về email <b>{email}</b>. Vui lòng nhập mã OTP vào ô bên dưới để xác thực tài khoản.</p>
+                    <p className="forgot-otp__sub-title">Mã OTP đã được gửi về email <b>{email}</b>. Vui lòng nhập mã OTP vào ô bên dưới để đặt lại mật khẩu.</p>
                 </div>
             </div>
 
-            <div className="otp__form">
+            <div className="forgot-otp__form">
                 <Form
                     form={form}
                     name="login"
@@ -73,4 +72,4 @@ function OTP() {
     );
 };
 
-export default OTP;
+export default ForgotOTP;
