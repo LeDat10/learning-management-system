@@ -261,7 +261,6 @@ function TrashCourse() {
                                                     >
                                                         <Meta
                                                             title={course.title}
-                                                            description={parse(course.description)}
                                                         />
                                                     </Card>
                                                 </Col>

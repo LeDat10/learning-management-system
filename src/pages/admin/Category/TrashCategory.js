@@ -260,7 +260,6 @@ function TrashCategory() {
                                                     >
                                                         <Meta
                                                             title={category.title}
-                                                            description={parse(category.description)}
                                                         />
                                                     </Card>
                                                 </Col>

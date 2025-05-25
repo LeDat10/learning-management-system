@@ -180,7 +180,7 @@ function TrashLesson() {
                             <Row gutter={[20, 20]}>
                                 {lessons && (
                                     lessons.map(lesson => (
-                                        <Col xxl={24} xl={24} lg={24} md={24} sm={24} xs={24} key={lesson._id}>
+                                        <Col xxl={12} xl={12} lg={12} md={24} sm={24} xs={24} key={lesson._id}>
                                             <Card
                                                 actions={[
                                                     <Checkbox
@@ -214,10 +214,12 @@ function TrashLesson() {
                                                 }
                                             >
 
-                                                <Meta
-                                                    title={lesson.title}
-                                                    description={parse(lesson.content || "")}
-                                                />
+                                                <div className="lesson__card-title">
+                                                    {lesson.title}
+                                                </div>
+                                                <div>
+                                                    {parse(lesson.content || "")}
+                                                </div>
                                             </Card>
                                         </Col>
                                     ))

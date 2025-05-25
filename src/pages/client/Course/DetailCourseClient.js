@@ -64,6 +64,8 @@ function DetailCourseClient() {
             message.error(result.message);
         }
     };
+
+    console.log(course);
     return (
         <>
             <div className="course__detail">
@@ -126,7 +128,7 @@ function DetailCourseClient() {
 
                                                 {course.isEnrolled ? (
                                                     <>
-                                                        <Link to={`/courses/${slugCourse}/play-course/${course._id}`}>
+                                                        <Link to={`/courses/${slugCourse}/play-course/${course._id}/${course?.sections?.[0]?._id}/null`}>
                                                             <Button size="large" style={{ marginBottom: "1rem" }} block type="primary">
                                                                 Vào học ngay
                                                             </Button>

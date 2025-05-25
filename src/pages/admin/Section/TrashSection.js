@@ -11,8 +11,6 @@ import { useQueryParams } from "../../../hooks/useQueryParams";
 import parse from "html-react-parser";
 import { useSelector } from "react-redux";
 
-const { Meta } = Card;
-
 function TrashSection() {
     const [sections, setSections] = useState([]);
     const [reload, setReload] = useState(false);
@@ -248,10 +246,12 @@ function TrashSection() {
                                                         }
                                                         className="course__card-item"
                                                     >
-                                                        <Meta
-                                                            title={section.title}
-                                                            description={parse(section.description || "")}
-                                                        />
+                                                        <div className="course__card-title">
+                                                            {section.title}
+                                                        </div>
+                                                        <div>
+                                                            {parse(section.description || "")}
+                                                        </div>
                                                     </Card>
                                                 </Col>
                                             ))

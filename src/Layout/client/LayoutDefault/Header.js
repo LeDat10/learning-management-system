@@ -21,8 +21,6 @@ function Header() {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    console.log(isMobile)
-
     const items = [
         {
             label: <Link to={"/"} className="header__label">Home</Link>,

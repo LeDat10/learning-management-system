@@ -38,12 +38,23 @@
         margin-bottom: 30px;
     }
 
+    &__card-title {
+        color: rgba(0, 0, 0, 0.88);
+        font-weight: 600;
+        font-size: 16px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        margin-bottom: 10px;
+    }
+
     &__card-item {
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        margin-bottom: 30px;
-        height: 100%;
+        overflow: hidden;
+    }
+
+    .ant-card-body {
+        height: 460px !important;
+        overflow-y: scroll !important;
     }
 
     // filter
@@ -53,5 +64,6 @@
         border-radius: 10px;
         margin-bottom: 15px;
     }
+
     // end filter
 }

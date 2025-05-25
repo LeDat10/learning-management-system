@@ -18,7 +18,6 @@ function PlayCourse() {
     const slugCourse = params.slugCourse;
     const fetchAPI = async () => {
         const result = await getDetailCourse(slugCourse);
-        console.log(result.course);
         if (result.code === 200) {
             setCourse(result.course);
             setItems(result.course.sections.map((section) => ({

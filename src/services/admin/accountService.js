@@ -1,17 +1,17 @@
 import { tokenAccountConfig } from "../../helper/tokenConfig";
 import { del, get, patch, post } from "../../utils/admin/request";
 
-export const createAccount = async(option) => {
+export const createAccount = async (option) => {
     const response = await post('admin/accounts/create', option, tokenAccountConfig());
     return response.data;
 };
 
-export const getRoles = async() => {
+export const getRoles = async () => {
     const response = await get('admin/accounts/get-roles', tokenAccountConfig());
     return response.data;
 };
 
-export const getAccount = async(params) => {
+export const getAccount = async (params) => {
     const response = await get(`admin/accounts?keyword=${params.keyword}&status=${params.status}&sortKey=${params.sortKey}&sortValue=${params.sortValue}&page=${params.page}&limit=${params.limit}`, tokenAccountConfig());
     return response.data;
 };
@@ -66,7 +66,17 @@ export const login = async (option) => {
     return response.data;
 };
 
-export const getPermssions = async() => {
+export const getPermssions = async () => {
     const result = await get('admin/accounts/permissions', tokenAccountConfig());
     return result;
+};
+
+export const logout = async () => {
+    const response = await post('admin/accounts/logout', {}, tokenAccountConfig());
+    return response.data;
+};
+
+export const getInfoAccount = async () => {
+    const response = await get('admin/accounts/info-account', tokenAccountConfig());
+    return response.data;
 };

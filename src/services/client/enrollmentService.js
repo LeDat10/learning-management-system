@@ -11,3 +11,8 @@ export const cancelCourse = async (option) => {
     const response = await post('client/enrollments/cancel', option, tokenUserConfig());
     return response.data;
 };
+
+export const registerCourseWithCode = async (option) => {
+    const response = await post('client/enrollments/code-register', option, tokenUserConfig());
+    return response.data;
+};

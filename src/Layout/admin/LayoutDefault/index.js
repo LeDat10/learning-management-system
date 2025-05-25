@@ -1,4 +1,4 @@
-import { Button, Col, Drawer, Layout, Row } from "antd";
+import { Button, Col, Drawer, Flex, Layout, Row } from "antd";
 import { Link, Outlet } from "react-router-dom";
 import Logo from "../../../images/admin/image.png";
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
@@ -6,6 +6,7 @@ import { useState } from "react";
 import "./LayoutDefaultAdmin.scss";
 import MenuSider from "./MenuSider";
 import { CloseOutlined } from "@ant-design/icons";
+import Info from "./Info";
 
 const { Header, Sider, Content } = Layout;
 
@@ -56,30 +57,33 @@ function LayoutDefaultAdmin() {
                 <Layout>
                     <Header
                         style={{
-                            padding: 0,
                             background: "#fff",
                             borderBottom: '1px solid #ddd',
                             position: 'sticky',
                             top: 0,
                             zIndex: 1,
                             width: '100%',
-                            display: 'flex',
-                            alignItems: 'center',
-                        }} >
-                        <Button
-                            type="text"
-                            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-                            onClick={() => {
-                                if (window.innerWidth >= 768) {
-                                    setCollapsed(!collapsed);
-                                };
-                            }}
-                            style={{
-                                fontSize: '16px',
-                                width: 64,
-                                height: 64,
-                            }}
-                        />
+                        }}
+                        className="header"
+                    >
+                        <Flex justify="space-between" align="center">
+                            <Button
+                                type="text"
+                                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                                onClick={() => {
+                                    if (window.innerWidth >= 768) {
+                                        setCollapsed(!collapsed);
+                                    };
+                                }}
+                                style={{
+                                    fontSize: '16px',
+                                    width: 64,
+                                    height: 64,
+                                }}
+                            />
+
+                            <Info />
+                        </Flex>
                     </Header>
 
                     <Content className='content'>
@@ -89,33 +93,31 @@ function LayoutDefaultAdmin() {
             </Layout>
 
             <Layout className="layout-basic">
-                <Header
-                    style={{
-                        padding: 0,
-                        background: "#fff",
-                        borderBottom: '1px solid #ddd',
-                        position: 'sticky',
-                        top: 0,
-                        zIndex: 1,
-                        width: '100%',
-                        display: 'flex',
-                        alignItems: 'center',
-                    }}
-                    className="layout-basic__header">
-                    <Row>
+                <Header>
+                    <Row style={{width: "100%"}} justify={"space-between"}>
                         <Col>
-                            <Link to={'/admin/dashboard'} className="layout-basic__inner-logo">
-                                <img src={Logo} alt="Adminator" />
-                            </Link>
+                            <Row>
+                                <Col>
+                                    <Link to={'/admin/dashboard'} className="layout-basic__inner-logo">
+                                        <img src={Logo} alt="Adminator" />
+                                    </Link>
+                                </Col>
+
+                                <Col>
+                                    <Button
+                                        type="text"
+                                        icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                                        onClick={showDrawer}
+                                        className="layout-basic__button"
+                                    />
+                                </Col>
+                            </Row>
                         </Col>
 
                         <Col>
-                            <Button
-                                type="text"
-                                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-                                onClick={showDrawer}
-                                className="layout-basic__button"
-                            />
+                            <Flex style={{height: "100%"}} align="center">
+                                <Info />
+                            </Flex>
                         </Col>
                     </Row>
                 </Header>

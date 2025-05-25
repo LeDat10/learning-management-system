@@ -69,7 +69,7 @@ function Login() {
                                 </Form.Item>
 
                                 <Form.Item>
-                                    <Button block type="primary" htmlType="submit">
+                                    <Button loading={loading} block type="primary" htmlType="submit">
                                         Đăng nhập
                                     </Button>
                                 </Form.Item>

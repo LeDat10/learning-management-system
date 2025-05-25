@@ -15,8 +15,6 @@ import { RedoOutlined } from '@ant-design/icons';
 import { useQueryParams } from "../../../hooks/useQueryParams";
 import { useSelector } from "react-redux";
 
-const { Meta } = Card;
-
 function Lesson() {
     const navigate = useNavigate();
     const params = useParams();
@@ -277,7 +275,7 @@ function Lesson() {
                             <Row gutter={[20, 20]}>
                                 {lessons && (
                                     lessons.map(lesson => (
-                                        <Col xxl={24} xl={24} lg={24} md={24} sm={24} xs={24} key={lesson._id}>
+                                        <Col xxl={12} xl={12} lg={12} md={24} sm={24} xs={24} key={lesson._id}>
                                             <Card
                                                 actions={[
                                                     <Checkbox
@@ -318,11 +316,14 @@ function Lesson() {
                                                         </Row>
                                                     </>
                                                 }
+                                                className="lesson__card-item"
                                             >
-                                                <Meta
-                                                    title={lesson.title}
-                                                    description={parse(lesson.content || "")}
-                                                />
+                                                <div className="lesson__card-title">
+                                                    {lesson.title}
+                                                </div>
+                                                <div>
+                                                    {parse(lesson.content || "")}
+                                                </div>
                                             </Card>
                                         </Col>
                                     ))
