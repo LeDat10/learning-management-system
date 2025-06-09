@@ -182,5 +182,27 @@
 
     &__card-title {
         margin-bottom: 20px;
+        font-size: 1.9rem;
+    }
+
+    &__item {
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__label {
+        font-size: 1.2rem;
+        font-weight: 500;
+    }
+
+    &__content {
+        font-size: 1.2rem;
+        font-weight: 500;
+    }
+
+    &__button-quiz {
+        display: flex;
+        justify-self: end;
     }
 }

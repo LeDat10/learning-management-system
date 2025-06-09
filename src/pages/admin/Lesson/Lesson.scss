@@ -53,8 +53,15 @@
     }
 
     .ant-card-body {
-        height: 460px !important;
-        overflow-y: scroll !important;
+        height: 460px;
+        overflow-y: scroll;
+    }
+
+    &__quiz {
+        .ant-card-body {
+        height: auto;
+        overflow-y: auto;
+    }
     }
 
     // filter

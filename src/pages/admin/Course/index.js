@@ -12,7 +12,7 @@ import { getSelected } from "../../../helper/getSelected";
 import ChangeMulti from "../../../Components/ChangeMulti";
 import Delete from "../../../Components/Delete";
 import { useQueryParams } from "../../../hooks/useQueryParams";
-import parse from "html-react-parser";
+// import parse from "html-react-parser";
 import { useSelector } from 'react-redux';
 
 const { Meta } = Card;
@@ -30,8 +30,6 @@ function Course() {
     const [totalCourse, setTotalCourse] = useState(1);
     const limit = 5;
     const { permissions } = useSelector((state) => state.authAdminReducer);
-
-    console.log(permissions);
 
     const fetchAPI = async (params = {}) => {
 

@@ -1,4 +1,4 @@
-import { Row, Col, Button, Card, Checkbox, InputNumber, Pagination, Tag } from "antd";
+import { Row, Col, Button, Card, Checkbox, InputNumber, Pagination, Tag, List, Form, Radio, Space } from "antd";
 import './Lesson.scss';
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -59,6 +59,7 @@ function Lesson() {
             status: status
         });
     }, [reload, location.search]);
+
 
     const handleCheck = (id) => {
         setCheckedLessons((prev) =>
@@ -297,6 +298,7 @@ function Lesson() {
                                                 hoverable
                                                 type="inner"
                                                 style={{ height: "100%" }}
+                                                classNames="lesson__item"
                                                 extra={
                                                     <>
                                                         <Row style={{ marginTop: "5px", marginBottom: "5px" }} gutter={[10, 10]} justify={"end"}>
@@ -321,9 +323,83 @@ function Lesson() {
                                                 <div className="lesson__card-title">
                                                     {lesson.title}
                                                 </div>
-                                                <div>
-                                                    {parse(lesson.content || "")}
-                                                </div>
+                                                {lesson.type === "quiz" && (
+                                                    <Form className="lesson__quiz">
+                                                        {lesson.questions.map((question, index) => (
+                                                            <Form.Item key={index}>
+                                                                <Card
+                                                                    title={`Câu ${index + 1}: ${question.content}`}
+                                                                >
+
+                                                                    {question.questionType === 'multiple' ? (
+                                                                        <>
+                                                                            <strong style={{
+                                                                                display: "block",
+                                                                                width: "100%",
+                                                                                marginBottom: "8px"
+                                                                            }}>Loại câu hỏi: <Tag color="blue">Nhiều đáp án đúng</Tag></strong>
+                                                                            <Checkbox.Group style={{ width: '100%' }}
+                                                                                value={
+                                                                                    question.answers
+                                                                                        .map((answer, index) => (answer.isCorrect ? index : null))
+                                                                                        .filter((i) => i !== null)
+                                                                                }
+                                                                            >
+                                                                                {question.answers.map((answer, index) => (
+                                                                                    <Checkbox
+                                                                                        key={index}
+                                                                                        value={index}
+                                                                                        style={{
+                                                                                            display: 'flex',
+                                                                                            alignItems: 'center',
+                                                                                            width: '100%',
+                                                                                            marginBottom: 8,
+                                                                                        }}
+                                                                                    >
+                                                                                        <span style={{ flex: 1 }}>
+                                                                                            {String.fromCharCode(65 + index)}. {answer.text}
+                                                                                        </span>
+                                                                                        {answer.isCorrect && <Tag color="success">Đáp án đúng</Tag>}
+                                                                                    </Checkbox>
+                                                                                ))}
+                                                                            </Checkbox.Group>
+                                                                        </>
+
+                                                                    ) : (
+                                                                        <>
+                                                                            <strong style={{
+                                                                                display: "block",
+                                                                                width: "100%",
+                                                                            }}>Loại câu hỏi: <Tag color="green">Một đáp án đúng</Tag></strong>
+
+                                                                            <Radio.Group
+                                                                                value={question.answers.findIndex(answer => answer.isCorrect)}
+                                                                            >
+                                                                                {question.answers.map((answer, index) => (
+                                                                                    <Radio key={index} style={{
+                                                                                        display: "block",
+                                                                                        width: "100%"
+                                                                                    }}
+                                                                                    value={index}
+                                                                                    >
+                                                                                        {answer.text}{" "}
+                                                                                        {answer.isCorrect && <Tag color="success">Đáp án đúng</Tag>}
+                                                                                    </Radio>
+                                                                                ))}
+                                                                            </Radio.Group>
+                                                                        </>
+                                                                    )}
+                                                                </Card>
+                                                            </Form.Item>
+                                                        ))}
+                                                    </Form>
+                                                )}
+
+                                                {lesson.type === "text" && (
+                                                    <div>
+                                                        {parse(lesson.content || "")}
+                                                    </div>
+                                                )}
                                             </Card>
                                         </Col>
                                     ))

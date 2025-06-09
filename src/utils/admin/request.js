@@ -1,7 +1,9 @@
 import axios from "axios";
 import { tokenExpiredAccount } from "../../actions/auth";
 import store from "../../store/store";
-const API_DOMAIN = 'https://api-learning-management-system.vercel.app/api/';
+// const API_DOMAIN = 'https://api-learning-management-system.vercel.app/api/';
+const API_DOMAIN = 'http://localhost:7000/api/';
+
 
 const axiosInstance = axios.create();
 

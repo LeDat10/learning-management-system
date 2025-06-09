@@ -40,6 +40,7 @@ import LayoutUser from "../Layout/client/LayoutUser";
 import ForgotPassword from "../pages/client/ForgotPassword";
 import ForgotOTP from "../pages/client/ForgotOTP";
 import ResetPassword from "../pages/client/ResetPassword";
+import Quiz from "../pages/client/Quiz/Quiz";
 
 export const routes = [
     {
@@ -80,6 +81,11 @@ export const routes = [
 
                 ]
             },
+            ,
+            {
+                path: "quiz/:lessonId",
+                element: <Quiz />
+            }
         ]
     },
     {
@@ -115,7 +121,7 @@ export const routes = [
                         path: "otp",
                         element: <ForgotOTP />
                     },
-                    { 
+                    {
                         path: "reset-password",
                         element: <ResetPassword />
                     }

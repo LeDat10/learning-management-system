@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { deleteTrashLessonText, getTrashLesson, restoreMultiLessonText, restoreTrashLesson } from "../../../services/admin/lessonSevice";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { Button, Card, Checkbox, Col, Pagination, Row } from "antd";
+import { Button, Card, Checkbox, Col, Form, Pagination, Radio, Row, Tag } from "antd";
 import parse from "html-react-parser";
 import InputSearch from "../../../Components/InputSearch";
 import Sort from "../../../Components/Sort";
@@ -217,9 +217,109 @@ function TrashLesson() {
                                                 <div className="lesson__card-title">
                                                     {lesson.title}
                                                 </div>
-                                                <div>
-                                                    {parse(lesson.content || "")}
-                                                </div>
+                                                {lesson.type === "quiz" && (
+                                                    // <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }} className="lesson__quiz">
+                                                    //     {lesson.questions.map((q, index) => (
+                                                    //         <Card key={index} title={`Câu ${index + 1}: ${q.content}`}>
+                                                    //             <p>
+                                                    //                 <strong>Loại câu hỏi:</strong>{' '}
+                                                    //                 {q.questionType === 'multiple' ? (
+                                                    //                     <Tag color="blue">Nhiều đáp án đúng</Tag>
+                                                    //                 ) : (
+                                                    //                     <Tag color="green">Một đáp án đúng</Tag>
+                                                    //                 )}
+                                                    //             </p>
+
+                                                    //             <List
+                                                    //                 dataSource={q.answers}
+                                                    //                 renderItem={(a, i) => (
+                                                    //                     <List.Item>
+                                                    //                         <div>
+                                                    //                             {String.fromCharCode(65 + i)}. {a.text}{' '}
+                                                    //                             {a.isCorrect && <Tag color="success">Đáp án đúng</Tag>}
+                                                    //                         </div>
+                                                    //                     </List.Item>
+                                                    //                 )}
+                                                    //             />
+                                                    //         </Card>
+                                                    //     ))}
+                                                    // </div>
+                                                    <Form className="lesson__quiz">
+                                                        {lesson.questions.map((question, index) => (
+                                                            <Form.Item key={index}>
+                                                                <Card
+                                                                    title={`Câu ${index + 1}: ${question.content}`}
+                                                                >
+
+                                                                    {question.questionType === 'multiple' ? (
+                                                                        <>
+                                                                            <strong style={{
+                                                                                display: "block",
+                                                                                width: "100%",
+                                                                                marginBottom: "8px"
+                                                                            }}>Loại câu hỏi: <Tag color="blue">Nhiều đáp án đúng</Tag></strong>
+                                                                            <Checkbox.Group style={{ width: '100%' }}
+                                                                                value={
+                                                                                    question.answers
+                                                                                        .map((answer, index) => (answer.isCorrect ? index : null))
+                                                                                        .filter((i) => i !== null)
+                                                                                }
+                                                                            >
+                                                                                {question.answers.map((answer, index) => (
+                                                                                    <Checkbox
+                                                                                        key={index}
+                                                                                        value={index}
+                                                                                        style={{
+                                                                                            display: 'flex',
+                                                                                            alignItems: 'center',
+                                                                                            width: '100%',
+                                                                                            marginBottom: 8,
+                                                                                        }}
+                                                                                    >
+                                                                                        <span style={{ flex: 1 }}>
+                                                                                            {String.fromCharCode(65 + index)}. {answer.text}
+                                                                                        </span>
+                                                                                        {answer.isCorrect && <Tag color="success">Đáp án đúng</Tag>}
+                                                                                    </Checkbox>
+                                                                                ))}
+                                                                            </Checkbox.Group>
+                                                                        </>
+
+                                                                    ) : (
+                                                                        <>
+                                                                            <strong style={{
+                                                                                display: "block",
+                                                                                width: "100%",
+                                                                            }}>Loại câu hỏi: <Tag color="green">Một đáp án đúng</Tag></strong>
+
+                                                                            <Radio.Group
+                                                                                value={question.answers.findIndex(answer => answer.isCorrect)}
+                                                                            >
+                                                                                {question.answers.map((answer, index) => (
+                                                                                    <Radio key={index} style={{
+                                                                                        display: "block",
+                                                                                        width: "100%"
+                                                                                    }}
+                                                                                        value={index}
+                                                                                    >
+                                                                                        {answer.text}{" "}
+                                                                                        {answer.isCorrect && <Tag color="success">Đáp án đúng</Tag>}
+                                                                                    </Radio>
+                                                                                ))}
+                                                                            </Radio.Group>
+                                                                        </>
+                                                                    )}
+                                                                </Card>
+                                                            </Form.Item>
+                                                        ))}
+                                                    </Form>
+                                                )}
+
+                                                {lesson.type === "text" && (
+                                                    <div>
+                                                        {parse(lesson.content || "")}
+                                                    </div>
+                                                )}
                                             </Card>
                                         </Col>
                                     ))
