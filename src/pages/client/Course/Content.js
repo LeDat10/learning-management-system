@@ -22,8 +22,6 @@ function Content() {
                 const result = await getDetailSection(courseId, sectionId);
                 if (result.code === 200) {
                     setContent(result.section);
-                } else {
-                    message.error(result.message);
                 }
             }
         } else {
@@ -31,8 +29,6 @@ function Content() {
                 const result = await getDetailLesson(sectionId, lessonId);
                 if (result.code === 200) {
                     setContent(result.lesson);
-                } else {
-                    message.error(result.message);
                 }
             }
         }

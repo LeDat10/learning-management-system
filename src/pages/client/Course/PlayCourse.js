@@ -109,19 +109,20 @@ function PlayCourse() {
                         position: 'sticky',
                         top: 0,
                         zIndex: 1,
-                        width: '100%',
-                        display: 'flex',
-                        alignItems: 'center',
+                        overflow: "hidden"
+                        // width: '100%',
+                        // display: 'flex',
+                        // alignItems: 'center',
                     }}
                     className="layout-basic__header">
                     <Row>
-                        <Col>
+                        <Col style={{height: "64px"}}>
                             <Link to={`/courses/detail/${slugCourse}`} className="layout-basic__inner-logo">
                                 <img src={course.thumbnail} alt={course.title} className="course__img-layout" />
                             </Link>
                         </Col>
 
-                        <Col>
+                        <Col style={{height: "64px"}}>
                             <Button
                                 type="text"
                                 icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
@@ -145,7 +146,7 @@ function PlayCourse() {
                                     <Link to={`/courses/detail/${slugCourse}`}>
                                         <Row align={"middle"}>
                                             <Col span={19}>
-                                                <h5 className='sider__label course__label-sider word-wrap ' collapsed={`${collapsed}`}>{course.title}</h5>
+                                                <h5 className='sider__label course__label-sider word-wrap' collapsed={`${collapsed}`}>{course.title}</h5>
                                             </Col>
                                         </Row>
                                     </Link>
@@ -155,7 +156,7 @@ function PlayCourse() {
                                     <Button style={{
                                         border: "0px",
                                         fontSize: "16px",
-                                        width: '64px',
+                                        width: '100%',
                                         height: "64px"
                                     }} icon={<CloseOutlined />}
                                         onClick={onClose}
