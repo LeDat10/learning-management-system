@@ -39,7 +39,7 @@
 
 .layout-basic {
     display: none;
-    
+
     .ant-layout-header {
         padding: 0;
         background-color: #fff;
@@ -48,7 +48,7 @@
         border-bottom: 1px solid #ddd;
         position: sticky;
         top: 0;
-        z-index: 1;
+        z-index: 999;
         display: flex;
         width: 100%;
         padding-right: 20px;
@@ -88,8 +88,22 @@
     }
 }
 
+
+// background: "#fff",
+//                             borderBottom: '1px solid #ddd',
+//                             position: 'sticky',
+//                             top: 0,
+//                             zIndex: 999,
+//                             width: '100%',
+
 .header {
     padding-left: 0px;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    border-bottom: 1px solid #ddd;
+    width: 100%;
+    background-color: #fff;
 
     &__avatar {
         width: 40px;

@@ -56,14 +56,6 @@ function LayoutDefaultAdmin() {
 
                 <Layout>
                     <Header
-                        style={{
-                            background: "#fff",
-                            borderBottom: '1px solid #ddd',
-                            position: 'sticky',
-                            top: 0,
-                            zIndex: 1,
-                            width: '100%',
-                        }}
                         className="header"
                     >
                         <Flex justify="space-between" align="center">
@@ -94,7 +86,12 @@ function LayoutDefaultAdmin() {
 
             <Layout className="layout-basic">
                 <Header>
-                    <Row style={{width: "100%"}} justify={"space-between"}>
+                    <Row style={{
+                        width: "100%",
+                        position: 'sticky',
+                        top: "0",
+                        zIndex: 999
+                    }} justify={"space-between"}>
                         <Col>
                             <Row>
                                 <Col>

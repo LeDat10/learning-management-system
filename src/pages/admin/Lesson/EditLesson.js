@@ -325,7 +325,18 @@ function EditLesson() {
                                                         <RangePicker
                                                             showTime
                                                             format="YYYY/MM/DD HH:mm"
+                                                            popupMatchSelectWidth={false}
+                                                            getPopupContainer={(trigger) => trigger.parentNode}
+                                                            style={{ width: '100%' }}
                                                         />
+                                                        {/* <DatePicker
+                                                            className="custom-datepicker"
+                                                            format="YYYY/MM/DD HH:mm"
+                                                            showTime
+                                                            popupMatchSelectWidth={false}
+                                                            getPopupContainer={(trigger) => trigger.parentNode}
+                                                            style={{ width: '100%' }}
+                                                        /> */}
                                                     </Form.Item>
                                                 </Col>
 

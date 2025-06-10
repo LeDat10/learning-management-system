@@ -278,6 +278,9 @@ function CreateLesson() {
                                                         <RangePicker
                                                             showTime
                                                             format="YYYY/MM/DD HH:mm"
+                                                            popupMatchSelectWidth={false}
+                                                            getPopupContainer={(trigger) => trigger.parentNode}
+                                                            style={{ width: '100%' }}
                                                         />
                                                     </Form.Item>
                                                 </Col>
