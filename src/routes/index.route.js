@@ -43,236 +43,234 @@ import ResetPassword from "../pages/client/ResetPassword";
 import Quiz from "../pages/client/Quiz/Quiz";
 
 export const routes = [
-    {
+  {
+    path: "/",
+    element: <PrivateRouteClient />,
+    children: [
+      {
         path: "/",
-        element: <PrivateRouteClient />,
+        element: <LayoutDefault />,
         children: [
-            {
-                path: "/",
-                element: <LayoutDefault />,
+          {
+            index: true,
+            element: <Home />,
+          },
+          {
+            path: "courses",
+            children: [
+              {
+                index: true,
+                element: <CourseClient />,
+              },
+              {
+                path: "detail/:slugCourse",
+                element: <DetailCourseClient />,
+              },
+              {
+                path: ":slugCourse/play-course/:courseId",
+                element: <PlayCourse />,
                 children: [
-                    {
-                        index: true,
-                        element: <Home />
-                    },
-                    {
-                        path: "courses",
-                        children: [
-                            {
-                                index: true,
-                                element: <CourseClient />
-                            },
-                            {
-                                path: "detail/:slugCourse",
-                                element: <DetailCourseClient />,
-                            },
-                            {
-                                path: ":slugCourse/play-course/:courseId",
-                                element: <PlayCourse />,
-                                children: [
-                                    {
-                                        path: ":sectionId/:lessonId",
-                                        element: <Content />
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-
-                ]
-            },
-            ,
-            {
-                path: "quiz/:lessonId",
-                element: <Quiz />
-            }
-        ]
-    },
-    {
-        path: "users",
-        element: <LayoutUser />,
+                  {
+                    path: ":sectionId/:lessonId",
+                    element: <Content />,
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      ,
+      {
+        path: "quiz/:lessonId",
+        element: <Quiz />,
+      },
+    ],
+  },
+  {
+    path: "users",
+    element: <LayoutUser />,
+    children: [
+      {
+        path: "login",
+        element: <LoginClient />,
+      },
+      {
+        path: "register",
+        element: <RegisterClient />,
+      },
+      {
+        path: "confirm",
         children: [
-            {
-                path: "login",
-                element: <LoginClient />
-            },
-            {
-                path: "register",
-                element: <RegisterClient />
-            },
-            {
-                path: "confirm",
-                children: [
-                    {
-                        path: "otp",
-                        element: <OTP />
-                    }
-
-                ]
-            },
-            {
-                path: "password",
-                children: [
-                    {
-                        path: "forgot",
-                        element: <ForgotPassword />
-                    },
-                    {
-                        path: "otp",
-                        element: <ForgotOTP />
-                    },
-                    {
-                        path: "reset-password",
-                        element: <ResetPassword />
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        path: "admin/login",
-        element: <Login />
-    },
-    {
-        path: "admin",
-        element: <PrivateRouteAdmin />,
+          {
+            path: "otp",
+            element: <OTP />,
+          },
+        ],
+      },
+      {
+        path: "password",
         children: [
-            {
-                path: '',
-                element: <LayoutDefaultAdmin />,
-                children: [
-                    {
-                        path: "dashboard",
-                        element: <Dashboard />
-                    },
-                    {
-                        path: 'courses',
-                        children: [
-                            {
-                                index: true,
-                                element: <Course />
-                            },
-                            {
-                                path: 'create',
-                                element: <CreateCourse />
-                            },
-                            {
-                                path: 'edit/:courseId',
-                                element: <EditCourse />
-                            },
-                            {
-                                path: 'trash',
-                                element: <TrashCourse />
-                            }
-                        ]
-                    },
-                    {
-                        path: ':courseId/sections',
-                        children: [
-                            {
-                                index: true,
-                                element: <Section />
-                            },
-                            {
-                                path: 'create',
-                                element: <CreateSection />
-                            },
-                            {
-                                path: 'edit/:sectionId',
-                                element: <EditSection />
-                            },
-                            {
-                                path: 'trash',
-                                element: <TrashSection />
-                            }
-                        ]
-                    },
-                    {
-                        path: ':courseId/:sectionId/lessons',
-                        children: [
-                            {
-                                index: true,
-                                element: <Lesson />
-                            },
-                            {
-                                path: 'create',
-                                element: <CreateLesson />
-                            },
-                            {
-                                path: 'edit/:lessonId',
-                                element: <EditLesson />
-                            },
-                            {
-                                path: 'trash',
-                                element: <TrashLesson />
-                            }
-                        ]
-                    },
-                    {
-                        path: 'category',
-                        children: [
-                            {
-                                index: true,
-                                element: <Category />,
-                            },
-                            {
-                                path: 'create',
-                                element: <CreateCategory />
-                            },
-                            {
-                                path: 'edit/:categoryId',
-                                element: <EditCategory />
-                            },
-                            {
-                                path: 'trash',
-                                element: <TrashCategory />
-                            }
-                        ]
-                    },
-                    {
-                        path: "roles",
-                        children: [
-                            {
-                                index: true,
-                                element: <Role />
-                            },
-                            {
-                                path: 'create',
-                                element: <CreateRole />
-                            },
-                            {
-                                path: 'edit/:roleId',
-                                element: <EditRole />
-                            },
-                            {
-                                path: 'trash',
-                                element: <TrashRole />
-                            }
-                        ]
-                    },
-                    {
-                        path: "accounts",
-                        children: [
-                            {
-                                index: true,
-                                element: <Account />
-                            },
-                            {
-                                path: 'create',
-                                element: <CreateAccount />
-                            },
-                            {
-                                path: 'edit/:accountId',
-                                element: <EditAccount />
-                            },
-                            {
-                                path: "trash",
-                                element: <TrashAccount />
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    }
-]
+          {
+            path: "forgot",
+            element: <ForgotPassword />,
+          },
+          {
+            path: "otp",
+            element: <ForgotOTP />,
+          },
+          {
+            path: "reset-password",
+            element: <ResetPassword />,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    path: "admin/login",
+    element: <Login />,
+  },
+  {
+    path: "admin",
+    element: <PrivateRouteAdmin />,
+    children: [
+      {
+        path: "",
+        element: <LayoutDefaultAdmin />,
+        children: [
+          {
+            path: "dashboard",
+            element: <Dashboard />,
+          },
+          {
+            path: "courses",
+            children: [
+              {
+                index: true,
+                element: <Course />,
+              },
+              {
+                path: "create",
+                element: <CreateCourse />,
+              },
+              {
+                path: "edit/:courseId",
+                element: <EditCourse />,
+              },
+              {
+                path: "trash",
+                element: <TrashCourse />,
+              },
+            ],
+          },
+          {
+            path: ":courseId/sections",
+            children: [
+              {
+                index: true,
+                element: <Section />,
+              },
+              {
+                path: "create",
+                element: <CreateSection />,
+              },
+              {
+                path: "edit/:sectionId",
+                element: <EditSection />,
+              },
+              {
+                path: "trash",
+                element: <TrashSection />,
+              },
+            ],
+          },
+          {
+            path: ":courseId/:sectionId/lessons",
+            children: [
+              {
+                index: true,
+                element: <Lesson />,
+              },
+              {
+                path: "create",
+                element: <CreateLesson />,
+              },
+              {
+                path: "edit/:lessonId",
+                element: <EditLesson />,
+              },
+              {
+                path: "trash",
+                element: <TrashLesson />,
+              },
+            ],
+          },
+          {
+            path: "category",
+            children: [
+              {
+                index: true,
+                element: <Category />,
+              },
+              {
+                path: "create",
+                element: <CreateCategory />,
+              },
+              {
+                path: "edit/:categoryId",
+                element: <EditCategory />,
+              },
+              {
+                path: "trash",
+                element: <TrashCategory />,
+              },
+            ],
+          },
+          {
+            path: "roles",
+            children: [
+              {
+                index: true,
+                element: <Role />,
+              },
+              {
+                path: "create",
+                element: <CreateRole />,
+              },
+              {
+                path: "edit/:roleId",
+                element: <EditRole />,
+              },
+              {
+                path: "trash",
+                element: <TrashRole />,
+              },
+            ],
+          },
+          {
+            path: "accounts",
+            children: [
+              {
+                index: true,
+                element: <Account />,
+              },
+              {
+                path: "create",
+                element: <CreateAccount />,
+              },
+              {
+                path: "edit/:accountId",
+                element: <EditAccount />,
+              },
+              {
+                path: "trash",
+                element: <TrashAccount />,
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+];

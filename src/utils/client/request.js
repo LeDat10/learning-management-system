@@ -1,9 +1,8 @@
 import axios from "axios";
 import { tokenExpiredUser } from "../../actions/auth";
 import store from "../../store/store";
-const API_DOMAIN = 'https://api-learning-management-system.vercel.app/api/';
+const API_DOMAIN = "https://api-learning-management-system.vercel.app/api/";
 // const API_DOMAIN = 'http://localhost:7000/api/';
-
 
 const axiosInstance = axios.create();
 
@@ -25,8 +24,6 @@ axiosInstance.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
-
 
 export const get = async (path, config = {}) => {
   const response = await axiosInstance.get(API_DOMAIN + path, config);
